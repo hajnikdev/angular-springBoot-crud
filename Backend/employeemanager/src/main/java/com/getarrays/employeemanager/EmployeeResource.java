@@ -27,8 +27,13 @@ public class EmployeeResource {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
-        Employee employee = employeeService.findEmployeeById(id);
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+        try {
+            Employee employee = employeeService.findEmployeeById(id);
+            return new ResponseEntity<>(employee, HttpStatus.OK);
+        } catch (Exception error) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
     }
 
     @PostMapping("/add")
